@@ -1,0 +1,6 @@
+apply from: "${rootDir}/gradle/backend-java.gradle"
+
+dependencies {
+    api(project(":forest-app:forest-persistence"))
+
+}

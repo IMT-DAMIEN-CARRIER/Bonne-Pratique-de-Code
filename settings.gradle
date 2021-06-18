@@ -1,0 +1,7 @@
+rootProject.name = 'forest'
+
+include ':forest-app:forest-api'
+include ':forest-app:forest-model'
+include ':forest-app:forest-persistence'
+include ':forest-app:forest-service'
+include ':forest-app:forest-web'

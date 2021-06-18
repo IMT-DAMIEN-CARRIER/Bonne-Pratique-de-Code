@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version "2.4.4"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.1.1"
+    id "org.openapi.generator" version "5.1.1"
+    id "info.solidsoft.pitest" version "1.6.0"
+}
+
+group = 'org.forest'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
+
+apply plugin: 'java-library'
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+subprojects {
+    pitest {
+        pitestVersion = "1.6.5"
+        failWhenNoMutations = false
+    }
+}
