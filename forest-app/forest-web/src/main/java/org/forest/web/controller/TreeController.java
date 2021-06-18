@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,6 +47,36 @@ public class TreeController implements TreeApi {
                 .map(this::map)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @Override
+    public ResponseEntity<Tree> createTree(Tree tree) {
+        org.forest.model.Tree saved = treeService.add(this.map(tree));
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(saved.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(map(saved));
+    }
+
+    @Override
+    public ResponseEntity<String> deleteTree(String id) {
+        treeService.deleteTree(UUID.fromString(id));
+
+        return ResponseEntity.ok(id);
+    }
+
+    public ResponseEntity<Tree> updateTree(Tree tree) {
+        org.forest.model.Tree modelTree = this.map(tree);
+
+        if (treeService.get(modelTree.id()).isPresent()) {
+            return ResponseEntity.ok(this.map(treeService.updateTree(modelTree)));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private Optional<UUID> getOptionalUUID(String uuid) {

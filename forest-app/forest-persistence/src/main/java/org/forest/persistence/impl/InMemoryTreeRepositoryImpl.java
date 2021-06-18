@@ -25,11 +25,11 @@ public class InMemoryTreeRepositoryImpl implements TreeRepository {
     }
 
     @Override
-    public UUID insert(Tree tree) {
+    public Tree insert(Tree tree) {
         final Tree persisted = new Tree(UUID.randomUUID(), tree.birth(), tree.species(), tree.exposure(), tree.carbonStorageCapacity());
         mutableRepository.add(persisted);
 
-        return persisted.id();
+        return persisted;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class TreeServiceImpl implements TreeService {
     }
 
     @Override
-    public UUID add(Tree tree) {
+    public Tree add(Tree tree) {
         return this.treeRepository.insert(tree);
     }
 

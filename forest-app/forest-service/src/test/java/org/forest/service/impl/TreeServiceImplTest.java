@@ -64,9 +64,9 @@ class TreeServiceImplTest {
         UUID generatedId = UUID.randomUUID();
         Tree newTree = new Tree(generatedId, LocalDate.now(), Species.OAK, Exposure.SHADOW, 40.0);
 
-        when(treeRepository.insert(any(Tree.class))).thenReturn(newTree.id());
+        when(treeRepository.insert(any(Tree.class))).thenReturn(newTree);
 
-        assertEquals(generatedId, treeService.add(newTree));
+        assertEquals(generatedId, treeService.add(newTree).id());
     }
 
     @Test

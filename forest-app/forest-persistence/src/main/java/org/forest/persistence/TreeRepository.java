@@ -12,7 +12,7 @@ public interface TreeRepository {
 
     List<Tree> findAll();
 
-    UUID insert(Tree tree);
+    Tree insert(Tree tree);
 
     void delete(UUID id);
 

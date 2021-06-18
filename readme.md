@@ -410,3 +410,5 @@ public class ForestServiceImplTest {
         return 0.4 * numberOfSpecies * this.getSumCapacityStorageForest(id);
     }
 ```
+
+J'applique un coefficient choisit aléatoirement pour calculer la capacité d'absorbtion.

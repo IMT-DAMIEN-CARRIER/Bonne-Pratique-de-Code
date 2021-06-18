@@ -52,6 +52,4 @@ class TreeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.species").value("OAK"));
 
     }
-
-
 }

@@ -15,7 +15,7 @@ public interface TreeService {
 
     List<Tree> list();
 
-    UUID add(Tree tree);
+    Tree add(Tree tree);
 
     void deleteTree(UUID id);
 
