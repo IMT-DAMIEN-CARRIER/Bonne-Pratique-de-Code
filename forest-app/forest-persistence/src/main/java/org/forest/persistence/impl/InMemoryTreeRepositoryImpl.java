@@ -2,10 +2,8 @@ package org.forest.persistence.impl;
 
 import org.forest.persistence.TreeRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+
 import org.forest.model.Tree;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +30,30 @@ public class InMemoryTreeRepositoryImpl implements TreeRepository {
         mutableRepository.add(persisted);
 
         return persisted.id();
+    }
+
+    @Override
+    public void delete(UUID id) throws NoSuchElementException {
+        final Optional<Tree> persisted = findOneById(id);
+
+        if (persisted.isPresent()) {
+            mutableRepository.remove(persisted);
+        } else {
+            throw new NoSuchElementException("Tree with id [" + id + "] does not exists");
+        }
+    }
+
+    @Override
+    public Tree update(Tree tree) throws NoSuchElementException {
+        final Optional<Tree> persistedTree = findOneById(tree.id());
+
+        if (persistedTree.isPresent()) {
+            int index = mutableRepository.indexOf(tree);
+            mutableRepository.set(index, tree);
+        } else {
+            throw new NoSuchElementException("Tree with id [" + tree.id() + "] does not exists");
+        }
+
+        return tree;
     }
 }

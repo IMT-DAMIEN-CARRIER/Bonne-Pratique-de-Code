@@ -13,4 +13,8 @@ public interface TreeRepository {
     List<Tree> findAll();
 
     UUID insert(Tree tree);
+
+    void delete(UUID id);
+
+    Tree update(Tree tree);
 }

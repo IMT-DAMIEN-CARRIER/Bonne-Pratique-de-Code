@@ -22,11 +22,26 @@ public class TreeServiceImpl implements TreeService {
 
     @Override
     public Optional<Tree> get(UUID uuid) {
-        return treeRepository.findOneById(uuid);
+        return this.treeRepository.findOneById(uuid);
     }
 
     @Override
     public List<Tree> list() {
-        return treeRepository.findAll();
+        return this.treeRepository.findAll();
+    }
+
+    @Override
+    public UUID add(Tree tree) {
+        return this.treeRepository.insert(tree);
+    }
+
+    @Override
+    public void deleteTree(UUID id) {
+        this.treeRepository.delete(id);
+    }
+
+    @Override
+    public Tree updateTree(Tree tree) {
+        return this.treeRepository.update(tree);
     }
 }

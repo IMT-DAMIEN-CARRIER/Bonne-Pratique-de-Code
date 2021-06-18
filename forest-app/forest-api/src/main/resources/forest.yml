@@ -22,6 +22,42 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Tree"
+    post:
+      summary: Create a tree
+      operationId: create_tree
+      tags:
+        - tree
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tree'
+      responses:
+        '201':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tree'
+    put:
+      summary: Update a tree
+      operationId: update_tree
+      tags:
+        - tree
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tree'
+      responses:
+        '200':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tree'
 
   /tree/{id}:
     get:
@@ -43,6 +79,120 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Tree"
+    delete:
+      tags:
+        - tree
+      summary: Delete a tree.
+      operationId: delete_tree
+      parameters:
+        -
+          in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Tree has been deleted.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ID of the deleted entity.
+
+  /forest:
+    get:
+      summary: List all forest
+      operationId: list_forest
+      tags:
+        - forest
+      responses:
+        '200':
+          description: A forest list was found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Forest"
+    post:
+      summary: Create a forest
+      operationId: create_forest
+      tags:
+        - forest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forest'
+      responses:
+        '201':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forest'
+    put:
+      summary: Update a forest
+      operationId: update_forest
+      tags:
+        - forest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forest'
+      responses:
+        '200':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forest'
+
+  /forest/{id}:
+    get:
+      summary: Info for a forest
+      operationId: getForest
+      tags:
+        - forest
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          description: The forest id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A forest was found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forest"
+    delete:
+      tags:
+        - tree
+      summary: Delete a forest.
+      operationId: delete_forest
+      parameters:
+        -
+          in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Forest has been deleted.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ID of the deleted entity.
 
 components:
   schemas:
@@ -79,3 +229,27 @@ components:
         carbonStorageCapacity:
           type: number
           format: double
+    ForestType:
+      enum:
+        - BOREAL
+        - TEMPERATE
+        - TROPICAL
+    Forest:
+      required:
+        - id
+        - type
+        - trees
+        - surface
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          $ref: '#/components/schemas/ForestType'
+        trees:
+          type: array
+          additionalProperties: false
+          items:
+            type: object
+        surface:
+          type: number
